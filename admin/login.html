@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login – UDJOG C2C Services</title>
+
+    <link rel="icon" type="image/png" href="../assets/logo/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+      body {
+        background: linear-gradient(135deg, var(--navy) 0%, #0d274c 50%, #06101e 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+      .admin-login-card {
+        background: #ffffff;
+        border-radius: var(--radius-lg);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+        padding: 40px;
+        width: 100%;
+        max-width: 440px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        animation: cardFade 0.4s ease-out;
+      }
+      @keyframes cardFade {
+        from { opacity: 0; transform: translateY(16px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .admin-login-header {
+        text-align: center;
+        margin-bottom: 28px;
+      }
+      .admin-login-logo {
+        width: 64px;
+        height: 64px;
+        object-fit: contain;
+        margin-bottom: 14px;
+      }
+      .login-alert {
+        display: none;
+        padding: 12px 16px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        font-size: 0.88rem;
+        align-items: center;
+        gap: 8px;
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        color: #991b1b;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="admin-login-card">
+      <div class="admin-login-header">
+        <img src="../assets/logo/logo.png" alt="UDJOG C2C Services" class="admin-login-logo" />
+        <h2 style="font-family: var(--font-head); font-size: 1.4rem; color: var(--grey-800); margin-bottom: 4px;">
+          UDJOG Admin Portal
+        </h2>
+        <p style="color: var(--grey-600); font-size: 0.88rem;">
+          Sign in to manage active jobs and recruitment reviews
+        </p>
+      </div>
+
+      <div id="login-alert" class="login-alert">
+        <span class="material-symbols-outlined" style="font-size: 1.2rem;">error</span>
+        <span id="login-alert-text">Invalid credentials</span>
+      </div>
+
+      <form id="admin-login-form">
+        <div style="margin-bottom: 18px;">
+          <label class="input-label" for="username">Admin Username</label>
+          <div style="position: relative; display: flex; align-items: center;">
+            <span class="material-symbols-outlined" style="position: absolute; left: 14px; color: var(--grey-400); font-size: 1.2rem;">account_circle</span>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              class="custom-input"
+              style="padding-left: 44px;"
+              placeholder="admin"
+              value="admin"
+              required
+            />
+          </div>
+        </div>
+
+        <div style="margin-bottom: 24px;">
+          <label class="input-label" for="password">Password</label>
+          <div style="position: relative; display: flex; align-items: center;">
+            <span class="material-symbols-outlined" style="position: absolute; left: 14px; color: var(--grey-400); font-size: 1.2rem;">lock</span>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              class="custom-input"
+              style="padding-left: 44px;"
+              placeholder="••••••••"
+              value="udjog2026"
+              required
+            />
+          </div>
+          <span class="help-text">Default demo login: <code>admin</code> / <code>udjog2026</code></span>
+        </div>
+
+        <button
+          type="submit"
+          id="login-btn"
+          class="btn btn-primary"
+          style="width: 100%; justify-content: center; padding: 13px; font-weight: 700;"
+        >
+          <span class="material-symbols-outlined">login</span>
+          Sign In to Dashboard
+        </button>
+      </form>
+
+      <div style="margin-top: 24px; text-align: center; border-top: 1px solid var(--grey-200); padding-top: 18px;">
+        <a href="../index.html" style="color: var(--grey-600); text-decoration: none; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 4px;">
+          <span class="material-symbols-outlined" style="font-size: 1.1rem;">arrow_back</span>
+          Back to Public Website
+        </a>
+      </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script>
+      // Check if already authenticated
+      if (sessionStorage.getItem("udjog_admin_auth") === "true") {
+        window.location.href = "dashboard.html";
+      }
+
+      const loginForm = document.getElementById("admin-login-form");
+      const alertBox = document.getElementById("login-alert");
+      const alertText = document.getElementById("login-alert-text");
+      const loginBtn = document.getElementById("login-btn");
+
+      loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        alertBox.style.display = "none";
+        const user = document.getElementById("username").value.trim();
+        const pass = document.getElementById("password").value.trim();
+
+        loginBtn.innerHTML = "Authenticating with database...";
+        loginBtn.disabled = true;
+
+        try {
+          if (window.API && window.API.adminLogin) {
+            await window.API.adminLogin(user, pass);
+            sessionStorage.setItem("udjog_admin_auth", "true");
+            sessionStorage.setItem("udjog_admin_user", user);
+            window.location.href = "dashboard.html";
+            return;
+          }
+          if (user === "admin" && pass === "udjog2026") {
+            sessionStorage.setItem("udjog_admin_auth", "true");
+            sessionStorage.setItem("udjog_admin_user", user);
+            window.location.href = "dashboard.html";
+          } else {
+            alertBox.style.display = "flex";
+            alertText.textContent = "Invalid username or password. Please try again.";
+          }
+        } catch (err) {
+          alertBox.style.display = "flex";
+          alertText.textContent = err.message || "Invalid credentials.";
+        } finally {
+          loginBtn.innerHTML = '<span class="material-symbols-outlined">login</span> Sign In to Dashboard';
+          loginBtn.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard – Job Management | UDJOG C2C</title>
+
+    <link rel="icon" type="image/png" href="../assets/logo/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body class="admin-body">
+    <!-- ===== TOP ADMIN NAVIGATION ===== -->
+    <header class="admin-nav">
+      <div class="admin-nav-title">
+        <img src="../assets/logo/logo.png" alt="UDJOG C2C Logo" style="height: 38px; width: auto;" />
+        <span>UDJOG C2C Admin Console</span>
+        <span class="admin-nav-badge">MANAGER</span>
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <a href="../jobs.html" target="_blank" class="btn btn-outline" style="padding: 8px 14px; font-size: 0.82rem; border-color: rgba(255,255,255,0.3); color: #fff;">
+          <span class="material-symbols-outlined" style="font-size: 1.1rem;">visibility</span>
+          View Live Portal
+        </a>
+        <button id="logout-btn" class="btn" style="padding: 8px 14px; font-size: 0.82rem; background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.4);">
+          <span class="material-symbols-outlined" style="font-size: 1.1rem;">logout</span>
+          Sign Out
+        </button>
+      </div>
+    </header>
+
+    <!-- ===== MAIN DASHBOARD CONTAINER ===== -->
+    <main class="container" style="padding-top: 36px; padding-bottom: 60px;">
+      <!-- STATS OVERVIEW CARDS -->
+      <div class="admin-stats-grid">
+        <div class="admin-stat-card">
+          <div class="stat-icon-circle" style="background: rgba(13, 158, 138, 0.15); color: var(--teal);">
+            <span class="material-symbols-outlined">work</span>
+          </div>
+          <div>
+            <div style="font-size: 0.8rem; color: var(--grey-600); text-transform: uppercase; font-weight: 700;">Live Job Posts</div>
+            <div id="stat-total-jobs" style="font-family: var(--font-head); font-size: 1.6rem; font-weight: 800; color: var(--grey-800);">0</div>
+          </div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="stat-icon-circle" style="background: rgba(30, 77, 155, 0.15); color: var(--blue);">
+            <span class="material-symbols-outlined">category</span>
+          </div>
+          <div>
+            <div style="font-size: 0.8rem; color: var(--grey-600); text-transform: uppercase; font-weight: 700;">Categories</div>
+            <div id="stat-total-cats" style="font-family: var(--font-head); font-size: 1.6rem; font-weight: 800; color: var(--grey-800);">4</div>
+          </div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="stat-icon-circle" style="background: rgba(245, 158, 11, 0.15); color: #d97706;">
+            <span class="material-symbols-outlined">person_search</span>
+          </div>
+          <div>
+            <div style="font-size: 0.8rem; color: var(--grey-600); text-transform: uppercase; font-weight: 700;">Candidate Inquiries</div>
+            <div id="stat-total-candidates" style="font-family: var(--font-head); font-size: 1.6rem; font-weight: 800; color: var(--grey-800);">0</div>
+          </div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="stat-icon-circle" style="background: rgba(249, 115, 22, 0.15); color: var(--orange);">
+            <span class="material-symbols-outlined">corporate_fare</span>
+          </div>
+          <div>
+            <div style="font-size: 0.8rem; color: var(--grey-600); text-transform: uppercase; font-weight: 700;">Employer Posts</div>
+            <div id="stat-total-employers" style="font-family: var(--font-head); font-size: 1.6rem; font-weight: 800; color: var(--grey-800);">0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WORKFLOW & SPREADSHEET REVIEW NOTICE BANNER -->
+      <div style="background: #ffffff; border: 1.5px solid var(--grey-200); border-left: 5px solid var(--teal); border-radius: var(--radius); padding: 22px 28px; margin-bottom: 30px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; box-shadow: 0 4px 16px rgba(10, 22, 40, 0.04);">
+        <div style="max-width: 780px;">
+          <h4 style="font-family: var(--font-head); font-size: 1.1rem; color: var(--navy); margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+            <span class="material-symbols-outlined" style="color: var(--teal);">sync_alt</span>
+            Candidate Applications &amp; Employer Submissions Review
+          </h4>
+          <p style="font-size: 0.88rem; color: var(--grey-600); line-height: 1.5; margin: 0;">
+            When employers or candidates submit forms, entries are stored in your connected Google Spreadsheet. Review the job requirements submitted by employers, and use the <strong>"Add New Job"</strong> button below to publish approved openings to the live portal.
+          </p>
+        </div>
+
+        <button type="button" id="open-sheet-info-btn" class="btn btn-outline" style="padding: 10px 18px; font-size: 0.85rem; border-color: var(--teal); color: var(--teal);">
+          <span class="material-symbols-outlined">table_view</span>
+          Review Submissions
+        </button>
+      </div>
+
+      <!-- JOB MANAGEMENT TABLE SECTION -->
+      <div class="admin-table-container">
+        <!-- Table Toolbar -->
+        <div style="padding: 20px 24px; border-bottom: 1px solid var(--grey-200); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+          <div style="display: flex; align-items: center; gap: 12px; flex: 1; max-width: 520px;">
+            <div style="position: relative; width: 100%;">
+              <span class="material-symbols-outlined" style="position: absolute; left: 12px; top: 11px; color: var(--grey-400); font-size: 1.15rem;">search</span>
+              <input
+                type="text"
+                id="admin-search-input"
+                class="custom-input"
+                style="padding: 9px 12px 9px 38px; font-size: 0.88rem;"
+                placeholder="Search jobs by title, company, or category..."
+              />
+            </div>
+            <select id="admin-category-filter" class="custom-select" style="padding: 9px 14px; font-size: 0.88rem; width: auto; min-width: 150px;">
+              <option value="all">All Categories</option>
+              <option value="it">IT &amp; Software</option>
+              <option value="bpo">BPO &amp; Customer Support</option>
+              <option value="banking">Banking &amp; Finance</option>
+              <option value="sales">Sales &amp; Marketing</option>
+            </select>
+          </div>
+
+          <button type="button" id="add-job-btn" class="btn btn-primary" style="padding: 10px 20px; font-size: 0.9rem; font-weight: 700;">
+            <span class="material-symbols-outlined">add_circle</span>
+            Add New Job Post
+          </button>
+        </div>
+
+        <!-- Table -->
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Job ID</th>
+              <th>Position &amp; Category</th>
+              <th>Company Name</th>
+              <th>Location</th>
+              <th>Salary / Package</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th style="text-align: right;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-jobs-tbody">
+            <!-- Populated dynamically by admin.js -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <!-- ===== ADD / EDIT JOB MODAL ===== -->
+    <div id="job-form-modal" class="job-modal-backdrop">
+      <div class="job-modal-content" style="max-width: 740px;">
+        <button type="button" id="job-form-close-btn" class="modal-close-btn">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+
+        <h3 id="modal-form-heading" style="font-family: var(--font-head); font-size: 1.4rem; color: var(--navy); margin-bottom: 4px;">
+          Add New Job Post
+        </h3>
+        <p style="color: var(--grey-600); font-size: 0.88rem; margin-bottom: 24px;">
+          This post will immediately appear on the public Job Portal (<a href="../jobs.html" target="_blank" style="color: var(--teal);">jobs.html</a>).
+        </p>
+
+        <form id="admin-job-editor-form">
+          <input type="hidden" id="edit-job-id" name="id" value="" />
+
+          <div class="udjog-form-grid">
+            <!-- Job Title -->
+            <div class="form-col-span-2">
+              <label class="input-label">Job Title / Designation <span class="req">*</span></label>
+              <input type="text" id="form-job-title" name="title" class="custom-input" placeholder="e.g. Senior Java Full Stack Developer" required />
+            </div>
+
+            <!-- Company -->
+            <div>
+              <label class="input-label">Company Name <span class="req">*</span></label>
+              <input type="text" id="form-job-company" name="company" class="custom-input" placeholder="e.g. CloudWave Technologies" required />
+            </div>
+
+            <!-- Category -->
+            <div>
+              <label class="input-label">Category Sector <span class="req">*</span></label>
+              <select id="form-job-category" name="category" class="custom-select" required>
+                <option value="it">IT &amp; Software</option>
+                <option value="bpo">BPO &amp; Customer Support</option>
+                <option value="banking">Banking &amp; Finance</option>
+                <option value="sales">Sales &amp; Marketing</option>
+                <option value="other">Other / Core</option>
+              </select>
+            </div>
+
+            <!-- Location -->
+            <div>
+              <label class="input-label">Location <span class="req">*</span></label>
+              <input type="text" id="form-job-location" name="location" class="custom-input" placeholder="e.g. Hyderabad, Telangana" required />
+            </div>
+
+            <!-- Job Type -->
+            <div>
+              <label class="input-label">Employment Type</label>
+              <select id="form-job-type" name="job_type" class="custom-select">
+                <option value="Full Time">Full Time</option>
+                <option value="Internship">Internship</option>
+                <option value="Contract">Contract</option>
+                <option value="Part Time">Part Time</option>
+              </select>
+            </div>
+
+            <!-- Salary -->
+            <div>
+              <label class="input-label">Salary / CTC</label>
+              <input type="text" id="form-job-salary" name="salary" class="custom-input" placeholder="e.g. ₹3.5 - ₹5.0 LPA" />
+            </div>
+
+            <!-- Experience -->
+            <div>
+              <label class="input-label">Experience Required</label>
+              <input type="text" id="form-job-experience" name="experience" class="custom-input" placeholder="e.g. Freshers / 0-1 Yr" />
+            </div>
+
+            <!-- Vacancies -->
+            <div>
+              <label class="input-label">Open Vacancies</label>
+              <input type="number" id="form-job-vacancies" name="vacancies" class="custom-input" placeholder="10" min="1" value="5" />
+            </div>
+
+            <!-- Status -->
+            <div>
+              <label class="input-label">Listing Status</label>
+              <select id="form-job-status" name="status" class="custom-select">
+                <option value="active">Active (Visible on Portal)</option>
+                <option value="closed">Closed / Archived</option>
+              </select>
+            </div>
+
+            <!-- Skills -->
+            <div class="form-col-span-2">
+              <label class="input-label">Key Skills (Comma-separated)</label>
+              <input type="text" id="form-job-skills" name="skills" class="custom-input" placeholder="e.g. Java, Spring Boot, MySQL, REST APIs" />
+            </div>
+
+            <!-- Description -->
+            <div class="form-col-span-2">
+              <label class="input-label">Job Description <span class="req">*</span></label>
+              <textarea id="form-job-desc" name="description" class="custom-textarea" rows="4" placeholder="Brief summary of duties, responsibilities, and team role..." required></textarea>
+            </div>
+
+            <!-- Requirements -->
+            <div class="form-col-span-2">
+              <label class="input-label">Eligibility &amp; Requirements</label>
+              <textarea id="form-job-req" name="requirements" class="custom-textarea" rows="3" placeholder="Education qualifications (B.Tech, Degree), batch year, technical prerequisites..."></textarea>
+            </div>
+          </div>
+
+          <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--grey-200); display: flex; justify-content: flex-end; gap: 12px;">
+            <button type="button" id="cancel-form-btn" class="btn btn-outline" style="padding: 10px 18px;">
+              Cancel
+            </button>
+            <button type="submit" id="save-job-submit-btn" class="btn btn-primary" style="padding: 10px 24px; font-weight: 700;">
+              <span class="material-symbols-outlined">save</span>
+              Save Job Post
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ===== SUBMISSIONS REVIEW MODAL ===== -->
+    <div id="submissions-info-modal" class="job-modal-backdrop">
+      <div class="job-modal-content" style="max-width: 680px;">
+        <button type="button" id="close-subs-modal-btn" class="modal-close-btn">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+
+        <h3 style="font-family: var(--font-head); font-size: 1.35rem; color: var(--navy); margin-bottom: 6px;">
+          Candidate &amp; Employer Submissions
+        </h3>
+        <p style="color: var(--grey-600); font-size: 0.88rem; margin-bottom: 20px;">
+          Submissions are automatically synced with your Google Spreadsheet and backed up locally.
+        </p>
+
+        <div style="background: var(--grey-50); border: 1px solid var(--grey-200); border-radius: 12px; padding: 18px; margin-bottom: 20px;">
+          <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; color: var(--grey-800);">Recent Employer Job Post Requests:</h4>
+          <div id="recent-employers-list" style="max-height: 180px; overflow-y: auto; font-size: 0.85rem; color: var(--grey-600);">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <div style="background: var(--grey-50); border: 1px solid var(--grey-200); border-radius: 12px; padding: 18px;">
+          <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; color: var(--grey-800);">Recent Candidate Applications:</h4>
+          <div id="recent-candidates-list" style="max-height: 180px; overflow-y: auto; font-size: 0.85rem; color: var(--grey-600);">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="admin.js"></script>
+  </body>
+</html>
+

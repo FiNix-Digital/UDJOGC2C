@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Find verified job openings across IT, Non-IT, BPO, Banking, and Sales on UDJOG C2C Services Job Portal. Free placement support for freshers and experienced candidates."
+    />
+    <title>Find a Job – UDJOG C2C Services Portal</title>
+
+    <link rel="icon" type="image/png" href="assets/logo/logo.png" />
+    <link rel="apple-touch-icon" href="assets/logo/logo.png" />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- ===== NAVBAR ===== -->
+    <nav id="navbar">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo">
+          <img src="assets/logo/logo.png" alt="UDJOG C2C Services Logo" class="nav-logo-img" />
+          <div class="nav-logo-text">
+            <strong>UDJOG C2C SERVICES</strong>
+            <span>Ur Dream Job is Our Goal</span>
+          </div>
+        </a>
+
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="jobs.html" class="active">Find a Job</a>
+          <a href="about.html">About Us</a>
+          <a href="candidates.html">Candidates</a>
+          <a href="employers.html">Employers</a>
+          <a href="contact.html">Contact</a>
+        </div>
+
+        <div class="nav-cta">
+          <a
+            href="employers.html"
+            class="btn btn-outline"
+            style="padding: 9px 16px; font-size: 0.85rem; border-color: rgba(255, 255, 255, 0.35); color: #ffffff;"
+          >
+            <span class="material-symbols-outlined" style="font-size: 1.1rem">post_add</span>
+            Post a Job
+          </a>
+          <a
+            href="https://wa.me/919999999999?text=Hi%20UDJOG!%20I%20am%20looking%20for%20a%20job."
+            target="_blank"
+            class="btn btn-whatsapp"
+            style="padding: 9px 16px; font-size: 0.85rem"
+          >
+            <span class="material-symbols-outlined" style="font-size: 1.1rem">chat</span>
+            WhatsApp
+          </a>
+        </div>
+
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- ===== MOBILE MENU ===== -->
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="index.html"><span class="material-symbols-outlined">home</span> Home</a>
+      <a href="jobs.html" class="active"><span class="material-symbols-outlined">work</span> Find a Job</a>
+      <a href="about.html"><span class="material-symbols-outlined">info</span> About Us</a>
+      <a href="candidates.html"><span class="material-symbols-outlined">person_search</span> Candidates</a>
+      <a href="employers.html"><span class="material-symbols-outlined">business</span> Employers</a>
+      <a href="contact.html"><span class="material-symbols-outlined">call</span> Contact Us</a>
+      <a
+        href="https://wa.me/919999999999"
+        target="_blank"
+        class="btn btn-whatsapp"
+        style="margin-top: 10px; justify-content: center"
+      >
+        <span class="material-symbols-outlined">chat</span> WhatsApp Enquiry
+      </a>
+    </div>
+
+    <!-- ===== PORTAL HERO ===== -->
+    <header class="job-portal-header">
+      <div class="container text-center">
+        <span class="section-label" style="background: rgba(20, 196, 168, 0.2); border-color: rgba(20, 196, 168, 0.4); color: var(--teal-light);">
+          <span class="material-symbols-outlined">verified</span> Verified Job Openings
+        </span>
+        <h1 class="section-title" style="color: #ffffff; margin-bottom: 12px;">
+          Find Your Dream Job Today
+        </h1>
+        <p class="section-subtitle" style="color: rgba(255, 255, 255, 0.8); max-width: 650px; margin: 0 auto 30px;">
+          Search active vacancies across top IT companies, multinational BPOs, leading private banks, and growth enterprises.
+        </p>
+      </div>
+    </header>
+
+    <!-- ===== JOB SEARCH & FILTER BAR ===== -->
+    <div class="container">
+      <div class="portal-search-container">
+        <div class="search-grid-filter">
+          <!-- Keyword input -->
+          <div class="search-field-wrap">
+            <span class="material-symbols-outlined">search</span>
+            <input
+              type="text"
+              id="job-search-input"
+              class="search-input"
+              placeholder="Search by Job Title, Company, or Skills..."
+              aria-label="Search jobs"
+            />
+          </div>
+
+          <!-- Category dropdown -->
+          <div class="search-field-wrap">
+            <span class="material-symbols-outlined">category</span>
+            <select id="job-category-select" class="search-select" aria-label="Select category">
+              <option value="all">All Categories</option>
+              <option value="it">IT &amp; Software</option>
+              <option value="bpo">BPO &amp; Customer Care</option>
+              <option value="banking">Banking &amp; Finance</option>
+              <option value="sales">Sales &amp; Marketing</option>
+            </select>
+          </div>
+
+          <!-- Location dropdown -->
+          <div class="search-field-wrap">
+            <span class="material-symbols-outlined">location_on</span>
+            <select id="job-location-select" class="search-select" aria-label="Select location">
+              <option value="all">All Locations</option>
+              <option value="hyderabad">Hyderabad</option>
+              <option value="bengaluru">Bengaluru</option>
+              <option value="vijayawada">Vijayawada</option>
+              <option value="visakhapatnam">Visakhapatnam</option>
+              <option value="remote">Remote / Work from Home</option>
+            </select>
+          </div>
+
+          <!-- Type dropdown -->
+          <div class="search-field-wrap">
+            <span class="material-symbols-outlined">schedule</span>
+            <select id="job-type-select" class="search-select" aria-label="Select job type">
+              <option value="all">All Types</option>
+              <option value="full time">Full Time</option>
+              <option value="internship">Internship</option>
+              <option value="part time">Part Time</option>
+            </select>
+          </div>
+
+          <!-- Search Button -->
+          <button type="button" id="job-search-btn" class="search-btn">
+            <span class="material-symbols-outlined">search</span>
+            Filter Jobs
+          </button>
+        </div>
+
+        <!-- Quick Filter Tags -->
+        <div class="filter-tags-row">
+          <span class="tag-label">Popular Sectors:</span>
+          <button type="button" class="filter-chip active" data-cat="all">All Jobs</button>
+          <button type="button" class="filter-chip" data-cat="it">IT &amp; Software</button>
+          <button type="button" class="filter-chip" data-cat="bpo">BPO / Call Centre</button>
+          <button type="button" class="filter-chip" data-cat="banking">Banking &amp; Finance</button>
+          <button type="button" class="filter-chip" data-cat="sales">Sales &amp; Marketing</button>
+        </div>
+      </div>
+
+      <!-- PORTAL STATUS / COUNTER -->
+      <div class="portal-status-bar">
+        <div class="portal-counter">
+          Showing <strong id="job-count-display">8</strong> verified active vacancies
+        </div>
+        <div>
+          <a href="candidates.html" class="btn btn-outline" style="padding: 6px 14px; font-size: 0.82rem;">
+            <span class="material-symbols-outlined" style="font-size: 1rem;">upload_file</span>
+            Upload Resume for Any Role
+          </a>
+        </div>
+      </div>
+
+      <!-- DYNAMIC JOB GRID -->
+      <div id="jobs-portal-grid" class="jobs-portal-grid">
+        <!-- Rendered dynamically by js/jobs.js -->
+      </div>
+    </div>
+
+    <!-- ===== JOB DETAILS MODAL ===== -->
+    <div id="job-details-modal" class="job-modal-backdrop" aria-hidden="true" role="dialog">
+      <div class="job-modal-content">
+        <button type="button" id="modal-close-btn" class="modal-close-btn" aria-label="Close modal">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+
+        <span id="modal-job-type" class="job-category-tag" style="background: rgba(249, 115, 22, 0.12); color: #ea580c;">FULL TIME</span>
+        <h2 id="modal-job-title" style="font-family: var(--font-head); font-size: 1.5rem; margin: 8px 0 4px; color: var(--grey-800);">Job Title</h2>
+        <div style="display: flex; align-items: center; gap: 8px; color: var(--grey-600); font-size: 0.95rem; margin-bottom: 20px;">
+          <span class="material-symbols-outlined" style="font-size: 1.1rem; color: var(--blue);">corporate_fare</span>
+          <strong id="modal-job-company">Company Name</strong>
+          <span>•</span>
+          <span class="material-symbols-outlined" style="font-size: 1.1rem; color: var(--teal);">location_on</span>
+          <span id="modal-job-location">Location</span>
+        </div>
+
+        <div class="job-details-chips" style="margin-bottom: 24px;">
+          <span class="meta-chip salary">
+            <span class="material-symbols-outlined" style="font-size: 1rem;">payments</span>
+            <span id="modal-job-salary">Salary</span>
+          </span>
+          <span class="meta-chip">
+            <span class="material-symbols-outlined" style="font-size: 1rem;">badge</span>
+            <span id="modal-job-exp">Experience</span>
+          </span>
+          <span class="meta-chip">
+            <span class="material-symbols-outlined" style="font-size: 1rem;">groups</span>
+            <span id="modal-job-vacancies">Vacancies</span>
+          </span>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <h4 style="font-family: var(--font-head); font-size: 1rem; color: var(--navy); margin-bottom: 8px;">Job Overview</h4>
+          <p id="modal-job-desc" style="color: var(--grey-600); line-height: 1.6; font-size: 0.92rem;">Description text...</p>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+          <h4 style="font-family: var(--font-head); font-size: 1rem; color: var(--navy); margin-bottom: 8px;">Eligibility &amp; Requirements</h4>
+          <p id="modal-job-req" style="color: var(--grey-600); line-height: 1.6; font-size: 0.92rem;">Requirements text...</p>
+        </div>
+
+        <div style="margin-bottom: 28px;">
+          <h4 style="font-family: var(--font-head); font-size: 1rem; color: var(--navy); margin-bottom: 8px;">Required Competencies</h4>
+          <div id="modal-job-skills" style="display: flex; gap: 8px; flex-wrap: wrap;"></div>
+        </div>
+
+        <div style="display: flex; gap: 12px; align-items: center; border-top: 1px solid var(--grey-200); padding-top: 20px;">
+          <a id="modal-apply-btn" href="candidates.html" class="btn btn-primary" style="flex: 1; justify-content: center; padding: 12px 20px;">
+            <span class="material-symbols-outlined">send</span>
+            Apply for this Position
+          </a>
+          <a href="https://wa.me/919999999999" target="_blank" class="btn btn-whatsapp" style="padding: 12px 18px;">
+            <span class="material-symbols-outlined">chat</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer style="margin-top: 60px;">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a href="index.html" class="nav-logo">
+              <img src="assets/logo/logo.png" alt="UDJOG C2C Services Logo" class="nav-logo-img" />
+              <div class="nav-logo-text">
+                <strong style="color: white">UDJOG C2C SERVICES</strong>
+                <span>Ur Dream Job is Our Goal</span>
+              </div>
+            </a>
+            <p>Direct placement pipeline connecting qualified freshers and job changers with leading employers across India.</p>
+          </div>
+
+          <div class="footer-col">
+            <h5>Navigation</h5>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="jobs.html">Find a Job</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="candidates.html">Candidate Registration</a></li>
+              <li><a href="employers.html">Employer Job Post</a></li>
+              <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Job Sectors</h5>
+            <ul>
+              <li><a href="jobs.html?category=it">IT / Software Roles</a></li>
+              <li><a href="jobs.html?category=bpo">Customer Support / Voice</a></li>
+              <li><a href="jobs.html?category=banking">Banking &amp; BFSI</a></li>
+              <li><a href="jobs.html?category=sales">Sales &amp; Business Dev</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5>Support &amp; Help</h5>
+            <div class="footer-contact-item">
+              <span class="material-symbols-outlined">call</span>
+              <a href="tel:+919999999999">+91 99999 99999</a>
+            </div>
+            <div class="footer-contact-item">
+              <span class="material-symbols-outlined">mail</span>
+              <a href="mailto:info@udjogc2c.com">info@udjogc2c.com</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2026 UDJOG C2C Services Pvt. Ltd. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ===== STICKY ACTION BUTTONS DOCK ===== -->
+    <div class="sticky-actions-dock" aria-label="Quick Actions">
+      <a href="jobs.html" class="sticky-btn sticky-btn-jobs" title="Browse Open Positions">
+        <span class="material-symbols-outlined">work</span>
+        <span>Find a Job</span>
+      </a>
+      <a href="employers.html" class="sticky-btn sticky-btn-post" title="Submit Hiring Requirement">
+        <span class="material-symbols-outlined">post_add</span>
+        <span>Post a Job</span>
+      </a>
+    </div>
+
+    <!-- ===== FLOATING WHATSAPP BUTTON ===== -->
+    <div id="wa-float">
+      <span class="wa-tooltip">Chat with us on WhatsApp</span>
+      <a
+        href="https://wa.me/919999999999?text=Hi%20UDJOG!%20I%20have%20a%20question%20about%20jobs."
+        target="_blank"
+        class="wa-float-btn"
+        aria-label="WhatsApp"
+      >
+        <span class="material-symbols-outlined">chat</span>
+      </a>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/jobs.js"></script>
+  </body>
+</html>
+
