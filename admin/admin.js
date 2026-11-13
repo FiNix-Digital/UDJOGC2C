@@ -181,6 +181,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("form-job-salary").value = job.salary || "";
     document.getElementById("form-job-experience").value = job.experience || "";
     document.getElementById("form-job-vacancies").value = job.vacancies || "1";
+    document.getElementById("form-job-contact-phone").value = job.contact_phone || "";
     document.getElementById("form-job-status").value = job.status || "active";
     document.getElementById("form-job-skills").value = Array.isArray(job.skills) ? job.skills.join(", ") : (job.skills || "");
     document.getElementById("form-job-desc").value = job.description || "";
@@ -220,6 +221,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       salary: document.getElementById("form-job-salary").value.trim(),
       experience: document.getElementById("form-job-experience").value.trim(),
       vacancies: parseInt(document.getElementById("form-job-vacancies").value, 10) || 1,
+      contact_phone: document.getElementById("form-job-contact-phone") ? document.getElementById("form-job-contact-phone").value.trim() : "",
       status: document.getElementById("form-job-status").value,
       skills: skillsArr,
       description: document.getElementById("form-job-desc").value.trim(),

@@ -1,97 +1,41 @@
-# 🚀 Cloudflare Free Deployment Guide – UDJOG C2C Services
+# 🚀 Cloudflare Deployment – UDJOG C2C Services (Live & Active)
 
-This guide walks you through deploying the complete **Frontend, Backend REST API, and SQLite Database** to Cloudflare's **100% Free Tier**.
-
----
-
-## 🎁 What Cloudflare Free Tier Gives You (Zero Cost)
-- **Frontend + Backend API**: Cloudflare Workers (100,000 requests/day free, global CDN, automated HTTPS/SSL, custom domain support).
-- **Database**: Cloudflare D1 Serverless SQLite (5,000,000 reads/day, 100,000 writes/day, 5 GB storage free).
+Your website, REST API backend, and Serverless SQLite database are now deployed on **Cloudflare's 100% Free Tier**.
 
 ---
 
-## 📋 Prerequisites
-1. A free Cloudflare account at [dash.cloudflare.com](https://dash.cloudflare.com/sign-up).
-2. Node.js (already installed on your machine).
+## 🌐 Live Production URLs
+
+| Page / Feature | Live Cloudflare Production URL |
+| :--- | :--- |
+| **Home Page** | [https://udjog-c2c.udjogc2c.workers.dev](https://udjog-c2c.udjogc2c.workers.dev) |
+| **Find a Job Portal** | [https://udjog-c2c.udjogc2c.workers.dev/jobs](https://udjog-c2c.udjogc2c.workers.dev/jobs) |
+| **Candidate Registration** | [https://udjog-c2c.udjogc2c.workers.dev/candidates](https://udjog-c2c.udjogc2c.workers.dev/candidates) |
+| **Employer Job Post** | [https://udjog-c2c.udjogc2c.workers.dev/employers](https://udjog-c2c.udjogc2c.workers.dev/employers) |
+| **About Us** | [https://udjog-c2c.udjogc2c.workers.dev/about](https://udjog-c2c.udjogc2c.workers.dev/about) |
+| **Contact Us** | [https://udjog-c2c.udjogc2c.workers.dev/contact](https://udjog-c2c.udjogc2c.workers.dev/contact) |
+| **Admin Portal Login** | [https://udjog-c2c.udjogc2c.workers.dev/admin/login](https://udjog-c2c.udjogc2c.workers.dev/admin/login) |
+| **Admin Dashboard** | [https://udjog-c2c.udjogc2c.workers.dev/admin/dashboard](https://udjog-c2c.udjogc2c.workers.dev/admin/dashboard) |
+
+> **Admin Default Login Credentials**:
+> - **Username**: `admin`
+> - **Password**: `udjog2026`
 
 ---
 
-## 🛠️ Step-by-Step Deployment (3 Easy Steps)
+## 🗄️ Cloudflare Architecture (100% Free Forever)
+- **Frontend**: Cloudflare Static Assets (HTML5, CSS3, ES6 JS, Fonts, Images)
+- **Backend**: Cloudflare Worker (`src/index.js`) handling REST APIs (`/api/jobs`, `/api/stats`, `/api/applications`, `/api/employers`, `/api/admin/...`)
+- **Database**: Cloudflare D1 (`udjog_db`, ID: `5acf068f-3f29-4dc4-b630-a4e6bf87f497`)
 
-### Step 1: Open Terminal & Log in to Cloudflare
-Open PowerShell or your terminal in the `UDJOGC2C` folder and run:
+---
+
+## 🔄 How to Redeploy After Making Code Changes
+Whenever you edit code inside `UDJOGC2C`, simply open PowerShell in `UDJOGC2C` and run:
 
 ```bash
 cd UDJOGC2C
-npx wrangler login
-```
-> A browser window will open asking you to click **"Allow"** to authorize Wrangler on your free Cloudflare account.
-
----
-
-### Step 2: Create Your Free Cloudflare D1 Database
-In the same terminal, run:
-
-```bash
-npx wrangler d1 create udjog_db
-```
-
-Wrangler will output something like:
-```json
-[[d1_databases]]
-binding = "DB"
-database_name = "udjog_db"
-database_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-```
-
-1. Copy the generated `database_id` string.
-2. Open `UDJOGC2C/wrangler.jsonc` and replace `"REPLACE_WITH_YOUR_D1_DATABASE_ID"` with your real `database_id`:
-
-```jsonc
-"d1_databases": [
-  {
-    "binding": "DB",
-    "database_name": "udjog_db",
-    "database_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-  }
-]
-```
-
----
-
-### Step 3: Run SQL Schema & Deploy Live!
-
-#### A. Seed database tables in Cloudflare D1:
-```bash
-npx wrangler d1 execute udjog_db --file=database/schema.sql --remote
-```
-
-#### B. Deploy everything to Cloudflare:
-```bash
 npx wrangler deploy
 ```
 
----
-
-## 🎉 You're Live!
-Wrangler will print your production URL:
-```
-Deployed udjog-c2c to: https://udjog-c2c.<your-username>.workers.dev
-```
-
-You can now visit:
-- **Public Website**: `https://udjog-c2c.<your-username>.workers.dev`
-- **Job Portal**: `https://udjog-c2c.<your-username>.workers.dev/jobs.html`
-- **Candidate Registration**: `https://udjog-c2c.<your-username>.workers.dev/candidates.html`
-- **Employer Job Post**: `https://udjog-c2c.<your-username>.workers.dev/employers.html`
-- **Admin Dashboard**: `https://udjog-c2c.<your-username>.workers.dev/admin/login.html` *(Username: `admin`, Password: `udjog2026`)*
-
----
-
-## 🔄 How to Redeploy After Changes
-Whenever you make updates to the code:
-```bash
-npx wrangler deploy
-```
-Changes take effect globally in under 5 seconds!
-
+Changes are deployed to all 300+ Cloudflare edge locations worldwide in under 10 seconds!

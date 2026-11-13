@@ -43,6 +43,7 @@ async function ensureD1Tables(db) {
         role_category TEXT,
         location TEXT,
         resume_link TEXT,
+        reference_by TEXT,
         message TEXT,
         applied_job TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -61,6 +62,9 @@ async function ensureD1Tables(db) {
         location TEXT NOT NULL,
         salary_ctc TEXT,
         vacancies INTEGER DEFAULT 1,
+        requirement_source TEXT,
+        hiring_mode TEXT,
+        interview_rounds TEXT,
         description TEXT,
         status TEXT DEFAULT 'pending',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -110,6 +114,22 @@ export default {
       ctx.waitUntil(ensureD1Tables(env.DB));
     }
 
+    // Auto-clean old records from database:
+    // Every 2 days: clear candidates older than 2 days
+    // Every 1 week: clear employers older than 7 days (or 3-7 days retention)
+    if (env.DB) {
+      ctx.waitUntil((async () => {
+        try {
+          // Clean candidates older than 2 days from DB (Google Sheets remains unaffected)
+          await env.DB.prepare("DELETE FROM candidates WHERE created_at < datetime('now', '-2 days')").run();
+          // Clean employers older than 7 days from DB
+          await env.DB.prepare("DELETE FROM employers WHERE created_at < datetime('now', '-7 days')").run();
+        } catch (e) {
+          console.warn("DB auto-cleanup note:", e.message);
+        }
+      })());
+    }
+
     // --- Stats API ---
     if (pathname === "/api/stats" && method === "GET") {
       if (env.DB) {
@@ -137,12 +157,12 @@ export default {
           const id = "cand-" + Date.now();
           if (env.DB) {
             await env.DB.prepare(`
-              INSERT INTO candidates (id, full_name, email, phone, qualification, passout_year, experience, role_category, location, resume_link, message, applied_job)
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+              INSERT INTO candidates (id, full_name, email, phone, qualification, passout_year, experience, role_category, location, resume_link, reference_by, message, applied_job)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             `).bind(
               id, body.full_name || "", body.email || "", body.phone || "", body.qualification || "",
               body.passout_year || "", body.experience || "", body.role_category || "", body.location || "",
-              body.resume_link || "", body.message || "", body.applied_job || "General Application"
+              body.resume_link || "", body.reference_by || "", body.message || "", body.applied_job || "General Application"
             ).run();
           }
           return new Response(JSON.stringify({ success: true, id }), { headers: corsHeaders, status: 201 });
@@ -175,12 +195,14 @@ export default {
           const id = "emp-" + Date.now();
           if (env.DB) {
             await env.DB.prepare(`
-              INSERT INTO employers (id, company_name, contact_person, email, phone, website, job_title, department, job_type, location, salary_ctc, vacancies, description, status)
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+              INSERT INTO employers (id, company_name, contact_person, email, phone, website, job_title, department, job_type, location, salary_ctc, vacancies, requirement_source, hiring_mode, interview_rounds, description, status)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             `).bind(
               id, body.company_name || "", body.contact_person || "", body.email || "", body.phone || "",
               body.website || "", body.job_title || "", body.department || "", body.job_type || "Full Time",
-              body.location || "", body.salary_ctc || "", Number(body.vacancies) || 1, body.description || "", "pending"
+              body.location || "", body.salary_ctc || "", Number(body.vacancies) || 1,
+              body.requirement_source || "Direct Company Hiring", body.hiring_mode || "Online / Virtual",
+              body.interview_rounds || "", body.description || "", "pending"
             ).run();
           }
           return new Response(JSON.stringify({ success: true, id }), { headers: corsHeaders, status: 201 });

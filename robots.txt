@@ -1,0 +1,11 @@
+# robots.txt for https://udjogc2c.in/
+User-agent: *
+Allow: /
+
+# Disallow internal admin areas from search engine indexing
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://udjogc2c.in/sitemap.xml
+

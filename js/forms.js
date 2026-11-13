@@ -8,25 +8,21 @@
  * 4. Paste the Web App URL into GOOGLE_SHEET_WEBHOOK_URL below.
  */
 
-const GOOGLE_SHEET_WEBHOOK_URL = ""; 
+const GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycby1ivO1VmkU-O1bw1n7-KDC9HytPvxwkZmPrKOw_sNBHPnCBF9iIzBu_HiQQ4K3nhje/exec";
 
-// Send payload to Google Sheets webhook if configured
-async function forwardToGoogleSheets(payload) {
+// Send payload to Google Sheets webhook asynchronously without blocking form response
+function forwardToGoogleSheets(payload) {
   if (!GOOGLE_SHEET_WEBHOOK_URL || GOOGLE_SHEET_WEBHOOK_URL.trim() === "") {
-    return false;
+    return Promise.resolve(false);
   }
-  try {
-    await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-    return true;
-  } catch (err) {
+  return fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  }).catch(err => {
     console.warn("Google Sheets forward note:", err.message);
-    return false;
-  }
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -69,6 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
         role_category: candidateForm.elements["role_category"]?.value || "",
         location: candidateForm.elements["location"]?.value?.trim() || "",
         resume_link: candidateForm.elements["resume_link"]?.value?.trim() || "",
+        reference_by: candidateForm.elements["reference_by"]?.value?.trim() || "",
         message: candidateForm.elements["message"]?.value?.trim() || "",
         applied_job: candidateForm.elements["applied_job"]?.value || "General Candidate Application"
       };
@@ -84,13 +81,15 @@ document.addEventListener("DOMContentLoaded", () => {
       submitBtn.disabled = true;
 
       try {
-        // 1. Send directly to real backend database!
-        if (window.API && window.API.submitCandidateApplication) {
-          await window.API.submitCandidateApplication(payload);
-        }
+        // Fire database insert and Google Sheets webhook in parallel for blazing-fast submission!
+        const dbPromise = (window.API && window.API.submitCandidateApplication)
+          ? window.API.submitCandidateApplication(payload)
+          : Promise.resolve();
 
-        // 2. Forward to Google Sheets Webhook if configured
-        await forwardToGoogleSheets(payload);
+        // Forward to Google Sheets in background
+        forwardToGoogleSheets(payload);
+
+        await dbPromise;
 
         showAlert(
           alertBox,
@@ -130,6 +129,9 @@ document.addEventListener("DOMContentLoaded", () => {
         location: employerForm.elements["location"]?.value?.trim() || "",
         salary_ctc: employerForm.elements["salary_ctc"]?.value?.trim() || "",
         vacancies: employerForm.elements["vacancies"]?.value?.trim() || "1",
+        requirement_source: employerForm.elements["requirement_source"]?.value || "Direct Company Hiring",
+        hiring_mode: employerForm.elements["hiring_mode"]?.value || "Online / Virtual",
+        interview_rounds: employerForm.elements["interview_rounds"]?.value?.trim() || "",
         description: employerForm.elements["description"]?.value?.trim() || ""
       };
 
@@ -144,13 +146,15 @@ document.addEventListener("DOMContentLoaded", () => {
       submitBtn.disabled = true;
 
       try {
-        // 1. Send directly to real backend database!
-        if (window.API && window.API.submitEmployerRequirement) {
-          await window.API.submitEmployerRequirement(payload);
-        }
+        // Fire database insert and Google Sheets webhook in parallel for instant response
+        const dbPromise = (window.API && window.API.submitEmployerRequirement)
+          ? window.API.submitEmployerRequirement(payload)
+          : Promise.resolve();
 
-        // 2. Forward to Google Sheets Webhook if configured
-        await forwardToGoogleSheets(payload);
+        // Forward to Google Sheets in background
+        forwardToGoogleSheets(payload);
+
+        await dbPromise;
 
         showAlert(
           alertBox,

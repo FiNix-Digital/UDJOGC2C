@@ -206,7 +206,8 @@ const server = http.createServer(async (req, res) => {
     try {
       const body = await parseJsonBody(req);
       const { username, password } = body;
-      if (username === "admin" && (password === "udjog2026" || password === process.env.ADMIN_PASSWORD)) {
+      const expectedPassword = process.env.ADMIN_PASSWORD || "udjog2026";
+      if (username === "admin" && password === expectedPassword) {
         return sendJson(res, 200, {
           success: true,
           token: "udjog_admin_" + Date.now(),

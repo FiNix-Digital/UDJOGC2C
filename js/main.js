@@ -227,4 +227,95 @@ document.addEventListener("DOMContentLoaded", () => {
       window.scrollTo({ top: 0, behavior: "smooth" })
     );
   }
+
+  // ===== CARTOON GUIDE BUDDY: TIME-BASED GREETING & BUTTON HIGHLIGHTER =====
+  function initCartoonGuideBuddy() {
+    const stickyDock = document.querySelector(".sticky-actions-dock");
+    // Only display on public pages that have the action buttons dock (not admin, not candidates, not employers)
+    if (!stickyDock) return;
+
+    // Time-based greeting
+    const hour = new Date().getHours();
+    let timeGreeting = "Good morning!";
+    let greetingIcon = "wb_sunny";
+    if (hour >= 12 && hour < 17) {
+      timeGreeting = "Good afternoon!";
+      greetingIcon = "sunny";
+    } else if (hour >= 17 && hour < 21) {
+      timeGreeting = "Good evening!";
+      greetingIcon = "nights_stay";
+    } else if (hour >= 21 || hour < 5) {
+      timeGreeting = "Hello!";
+      greetingIcon = "dark_mode";
+    }
+
+    // Create cartoon guide container
+    const guideContainer = document.createElement("div");
+    guideContainer.className = "guide-character-container";
+    guideContainer.setAttribute("aria-label", "UDJOG Assistant Buddy");
+
+    guideContainer.innerHTML = `
+      <div class="guide-speech-bubble" id="guide-bubble" title="Click to dismiss or interact">
+        <div class="guide-speech-greeting">
+          <span class="material-symbols-outlined" style="font-size: 1rem;">${greetingIcon}</span>
+          <span>${timeGreeting}</span>
+        </div>
+        <div>Tap <strong>Find a Job</strong> or <strong>Post a Job</strong> right here! 👇</div>
+      </div>
+      <div class="guide-character-wrap" id="guide-char" title="I am your UDJOG Career Buddy!">
+        <div class="char-headphone-band"></div>
+        <div class="char-headphone-left"></div>
+        <div class="char-headphone-right"></div>
+        <div class="char-body">
+          <div class="char-eye left"></div>
+          <div class="char-eye right"></div>
+          <div class="char-blush left"></div>
+          <div class="char-blush right"></div>
+          <div class="char-smile"></div>
+        </div>
+        <div class="char-pointing-arm">
+          <span class="char-pointing-hand">👉</span>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(guideContainer);
+
+    // Interactive speech bubble rotation messages on click
+    const bubble = document.getElementById("guide-bubble");
+    const guideChar = document.getElementById("guide-char");
+    const hints = [
+      `<div>Looking for work? Click <strong>Find a Job</strong>! 💼</div>`,
+      `<div>Hiring talent? Click <strong>Post a Job</strong>! 🚀</div>`,
+      `<div>All candidate placement is <strong>100% Free</strong>! ✨</div>`,
+      `<div>Tap below to explore open vacancies! 🎯</div>`
+    ];
+    let hintIdx = 0;
+
+    const changeHint = () => {
+      hintIdx = (hintIdx + 1) % hints.length;
+      bubble.innerHTML = `
+        <div class="guide-speech-greeting">
+          <span class="material-symbols-outlined" style="font-size: 1rem;">${greetingIcon}</span>
+          <span>${timeGreeting}</span>
+        </div>
+        ${hints[hintIdx]}
+      `;
+    };
+
+    if (bubble) bubble.addEventListener("click", changeHint);
+    if (guideChar) guideChar.addEventListener("click", changeHint);
+
+    // Subtle hand gesture alternating between pointing down at the buttons
+    const hand = guideContainer.querySelector(".char-pointing-hand");
+    let pointToggle = false;
+    setInterval(() => {
+      pointToggle = !pointToggle;
+      if (hand) {
+        hand.textContent = pointToggle ? "👇" : "👉";
+      }
+    }, 1600);
+  }
+
+  initCartoonGuideBuddy();
 });

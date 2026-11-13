@@ -5,7 +5,8 @@ import { validateJob } from "../utils/validation.js";
 export async function handleAdminLogin(request, env) {
   try {
     const { username, password } = await request.json();
-    if (username === "admin" && (password === "udjog2026" || password === env.ADMIN_PASSWORD)) {
+    const expectedPassword = env.ADMIN_PASSWORD;
+    if (username === "admin" && expectedPassword && password === expectedPassword) {
       const token = "admin_token_" + Date.now();
       return new Response(JSON.stringify({ success: true, token }), {
         headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" }

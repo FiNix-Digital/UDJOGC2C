@@ -147,6 +147,36 @@
   ],
   "candidates": [
     {
+      "id": "cand-1794583117168",
+      "full_name": "Name",
+      "email": "Email",
+      "phone": "Number",
+      "qualification": "10th / SSC",
+      "passout_year": "2025",
+      "experience": "1 - 2 Years",
+      "role_category": "Banking & Finance",
+      "location": "Warangal",
+      "resume_link": "drive.gmail.com.in",
+      "message": "brief summary",
+      "applied_job": "General Candidate Application",
+      "created_at": "2026-11-13T15:18:37.168Z"
+    },
+    {
+      "id": "cand-1794583006117",
+      "full_name": ";slkdjflk",
+      "email": "l;skdjf",
+      "phone": "l;sdkfj",
+      "qualification": "10th / SSC",
+      "passout_year": "2026",
+      "experience": "Fresher",
+      "role_category": "IT / Software",
+      "location": ";lsdkjf",
+      "resume_link": ";sldkfj",
+      "message": "",
+      "applied_job": "General Candidate Application",
+      "created_at": "2026-11-13T15:16:46.117Z"
+    },
+    {
       "id": "cand-1794417808260",
       "full_name": "Kavitha Sharma",
       "email": "kavitha.sharma@example.com",
@@ -163,6 +193,57 @@
     }
   ],
   "employers": [
+    {
+      "id": "emp-1794583509842",
+      "company_name": "Google",
+      "contact_person": "Vikram",
+      "email": "hr@google.com",
+      "phone": "99999999",
+      "website": "google.com",
+      "job_title": "Label Process",
+      "department": "IT & Software",
+      "job_type": "Full Time",
+      "location": "Hyderabad",
+      "salary_ctc": "4-8LPA",
+      "vacancies": 50,
+      "description": "Job Description & Candidate Requirements",
+      "status": "pending",
+      "created_at": "2026-11-13T15:25:09.842Z"
+    },
+    {
+      "id": "emp-1794582945243",
+      "company_name": ";lskdnfnjnl;kjk",
+      "contact_person": "ls;kdjfflks",
+      "email": ";lskdjff",
+      "phone": "lskdjf",
+      "website": "lksdjgf",
+      "job_title": "slkdfj",
+      "department": "IT & Software",
+      "job_type": "Full Time",
+      "location": "sldkfj",
+      "salary_ctc": "slkdfj",
+      "vacancies": 55,
+      "description": "lkdjflklsdjf",
+      "status": "pending",
+      "created_at": "2026-11-13T15:15:45.244Z"
+    },
+    {
+      "id": "emp-1794582872159",
+      "company_name": ";alksdjf",
+      "contact_person": ";sldkfj",
+      "email": "sldkfj",
+      "phone": ";alsdjf",
+      "website": "lsdkfj",
+      "job_title": "slkdfjf",
+      "department": "Sales & Marketing",
+      "job_type": "Full Time",
+      "location": "sldkfj",
+      "salary_ctc": "sldkfj",
+      "vacancies": 5,
+      "description": ";lskdfjie",
+      "status": "pending",
+      "created_at": "2026-11-13T15:14:32.159Z"
+    },
     {
       "id": "emp-1794417808276",
       "company_name": "Global FinTech Ltd",
@@ -181,5 +262,5 @@
       "created_at": "2026-11-11T17:23:28.276Z"
     }
   ],
-  "lastUpdated": "2026-11-11T17:38:00.461Z"
+  "lastUpdated": "2026-11-13T16:17:32.541Z"
 }
